@@ -1,0 +1,9 @@
+*.pyc
+
+# editor stuff
+*.sublime-*
+.idea
+
+# testing files
+test_*
+uPipe.db
