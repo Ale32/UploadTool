@@ -1,0 +1,17 @@
+{
+    "paths":
+    {
+        "database": "data/VRProjects.db",
+        "server": "fast.nas",
+        "share": "oculusunreal",
+        "content_name": "unreal_data"
+    },
+
+    "settings": {
+        "file_formats":
+        {
+            "file": ["fbx"],
+            "texture": ["jpg", "png", "tga"]
+        }
+    }
+}
