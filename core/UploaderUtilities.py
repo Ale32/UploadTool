@@ -1,6 +1,9 @@
 __author__ = 'a.paoletti'
 
 from core import sql
+import os
+
+from config import ConfigReader
 
 
 def get_projects():
@@ -30,5 +33,32 @@ def get_assets(id_group):
     return names
 
 
-def check_texture_type():
-    pass
+def file_type(filename):
+    ext = os.path.splitext(filename)[1].replace('.', '')
+
+    return ConfigReader.file_type_from_ext(ext)
+
+
+def generate_name(filename, asset_name):
+
+    ext = os.path.splitext(filename)[1].replace('.', '')
+
+    f_type = file_type(filename)
+
+    prefix = ConfigReader.asset_prefix(f_type)
+
+    suffix = ''
+    if f_type == 'textures':
+        suffix = ConfigReader.texture_suffix(filename)
+
+        if not suffix:
+            raise Exception("Can't recognize texture type from the name.")
+
+    # complete name
+    name = prefix + '_' + asset_name
+
+    if suffix:
+        name += '_' + suffix
+
+    name += '.' + ext
+    return name
