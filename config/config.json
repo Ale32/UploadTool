@@ -4,49 +4,51 @@
         "database": "data/VRProjects.db",
         "server": "fast.nas",
         "share": "oculusunreal",
-        "content_name": "unreal_data"
+        "content": "unreal_data"
     },
 
     "file_formats":
     {
-        "file": ["fbx"],
-        "texture": ["jpg", "png", "tga"],
-        "audio": ["wav"]
-    },
-
-    "texture_naming":
-    {
-        "normal": {
-            "text": ["normal", "normals"],
-            "ue_suffix": "N"
-        },
-
-        "diffuse": {
-            "text": ["diffuse", "albedo", "color"],
-            "ue_suffix": "D"
-        },
-
-        "roughness": {
-            "text": ["roughness", "rough"],
-            "ue_suffix": "R"
-        },
-
-        "occlusion": {
-            "text": ["occlusion"],
-            "ue_suffix": "AO"
-        },
-
-        "metallic": {
-            "text": ["metallic"],
-            "ue_suffix": "M"
-        }
+        "meshes": ["fbx"],
+        "textures": ["jpg", "jpeg", "png", "tga"],
+        "audio": ["wav"],
+        "video": ["mp4", "wmv"],
+        "sources": ["ma", "mb", "zb", "max"]
     },
 
     "asset_prefix":
     {
         "meshes": "SM",
+        "textures": "TXT",
         "skeletal": "SKM",
-        "animations": "ANI",
-        "textures": "TXT"
+        "animations": "ANI"
+    },
+
+    "texture_naming":
+    {
+        "normal": {
+            "text": ["normal", "normals", "n"],
+            "suffix": "N"
+        },
+
+        "diffuse": {
+            "text": ["diffuse", "albedo", "color", "d"],
+            "suffix": "D"
+        },
+
+        "roughness": {
+            "text": ["roughness", "rough", "r"],
+            "suffix": "R"
+        },
+
+        "occlusion": {
+            "text": ["occlusion", "ao"],
+            "suffix": "AO"
+        },
+
+        "metallic": {
+            "text": ["metallic", "m"],
+            "suffix": "M"
+        }
     }
 }
