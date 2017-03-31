@@ -7,11 +7,46 @@
         "content_name": "unreal_data"
     },
 
-    "settings": {
-        "file_formats":
-        {
-            "file": ["fbx"],
-            "texture": ["jpg", "png", "tga"]
+    "file_formats":
+    {
+        "file": ["fbx"],
+        "texture": ["jpg", "png", "tga"],
+        "audio": ["wav"]
+    },
+
+    "texture_naming":
+    {
+        "normal": {
+            "text": ["normal", "normals"],
+            "ue_suffix": "N"
+        },
+
+        "diffuse": {
+            "text": ["diffuse", "albedo", "color"],
+            "ue_suffix": "D"
+        },
+
+        "roughness": {
+            "text": ["roughness", "rough"],
+            "ue_suffix": "R"
+        },
+
+        "occlusion": {
+            "text": ["occlusion"],
+            "ue_suffix": "AO"
+        },
+
+        "metallic": {
+            "text": ["metallic"],
+            "ue_suffix": "M"
         }
+    },
+
+    "asset_prefix":
+    {
+        "meshes": "SM",
+        "skeletal": "SKM",
+        "animations": "ANI",
+        "textures": "TXT"
     }
 }

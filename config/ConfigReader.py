@@ -32,7 +32,7 @@ def accepted_format(filename, file_type):
     config_data = read_config()
     ext = os.path.splitext(filename)[1].replace('.', '')
 
-    if ext.lower() in [format.lower() for format in config_data['settings']['file_formats'][file_type]]:
+    if ext.lower() in [format.lower() for format in config_data['file_formats'][file_type]]:
         return True
 
     return False
@@ -48,11 +48,11 @@ def accepted_files(filename):
 
 def generate_file_filter():
     config_data = read_config()
-    file_formats = ['*.{}'.format(f.lower()) for f in config_data['settings']['file_formats']['file']]
+    file_formats = ['*.{}'.format(f.lower()) for f in config_data['file_formats']['file']]
     return ' '.join(file_formats)
 
 
 def generate_texture_filter():
     config_data = read_config()
-    file_formats = ['*.{}'.format(f.lower()) for f in config_data['settings']['file_formats']['texture']]
+    file_formats = ['*.{}'.format(f.lower()) for f in config_data['file_formats']['texture']]
     return ' '.join(file_formats)
