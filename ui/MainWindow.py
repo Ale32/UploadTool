@@ -4,6 +4,7 @@ from PySide import QtCore, QtGui, QtUiTools
 
 from core import UploaderUtilities
 from core import Uploader
+from config import ConfigReader
 
 
 class UploadToolUI(object):
@@ -14,6 +15,8 @@ class UploadToolUI(object):
         self.setup_connections()
 
         self.fill_projects()
+
+        self.populate_convention_table()
 
     def setup_connections(self):
         self.ui.button_fbx.clicked.connect(self.get_files)
@@ -29,6 +32,18 @@ class UploadToolUI(object):
 
         self.ui.button_upload.clicked.connect(self.upload)
 
+    def populate_convention_table(self):
+        data = ConfigReader.texture_naming_dict()
+        self.ui.table_rules.setColumnCount(2)
+        self.ui.table_rules.setHorizontalHeaderLabels(['Texture Type', 'Accepted Names'])
+        self.ui.table_rules.setRowCount(len(data))
+
+        row = 0
+        for key, value in data.iteritems():
+            self.ui.table_rules.setItem(row, 0, QtGui.QTableWidgetItem(key))
+            self.ui.table_rules.setItem(row, 1, QtGui.QTableWidgetItem(', '.join(value['text'])))
+            row += 1
+
     def upload(self):
         # get data selected
         project = self.ui.comboBox_projects.itemData(self.ui.comboBox_projects.currentIndex())[1]
@@ -42,6 +57,10 @@ class UploadToolUI(object):
         for index in xrange(self.ui.listWidget.count()):
             selected_files.append(self.ui.listWidget.item(index).text())
 
+        self.ui.statusbar.showMessage(
+            "Copying file into {0}".format(uploader.directory()),
+            3000  # milliseconds
+        )
         # upload selected files
         for f in selected_files:
             uploader.upload(f)
