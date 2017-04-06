@@ -38,7 +38,6 @@ class Uploader(object):
         asset_name = UploaderUtilities.generate_name(os.path.basename(file_path), self.asset)
 
         if not asset_name:
-            print "il nome e sbagliato"
             return
 
         # set the output path
