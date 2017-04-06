@@ -2,6 +2,7 @@
 UPLOADER CLASS
 """
 import os
+import shutil
 from config import ConfigReader
 from core import UploaderUtilities
 
@@ -29,7 +30,27 @@ class Uploader(object):
         )
         os.path.normcase(self.dir)
 
+    def directory(self):
+        return self.dir
+
     def upload(self, file_path):
-        filename = os.path.basename(file_path)
-        asset_name = UploaderUtilities.generate_name(filename, self.asset)
-        print os.path.join(self.dir, asset_name)
+        # generate asset name from file basename
+        asset_name = UploaderUtilities.generate_name(os.path.basename(file_path), self.asset)
+
+        if not asset_name:
+            print "il nome e sbagliato"
+            return
+
+        # set the output path
+        file_output = os.path.join(self.dir, asset_name)
+
+        try:
+            # shutil.copy2(src, dst)
+            print 'SOURCE ', file_path
+            print 'DEST ', file_output
+
+        except shutil.Error as e:
+            print('Error copying file: %s' % e)
+
+        except IOError as e:
+            print('Error copying file: %s' % e)

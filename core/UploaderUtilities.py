@@ -1,6 +1,7 @@
 __author__ = 'a.paoletti'
 
 from core import sql
+from core import debug
 import os
 
 from config import ConfigReader
@@ -45,6 +46,10 @@ def generate_name(filename, asset_name):
 
     f_type = file_type(filename)
 
+    if f_type is None:
+        debug.show_error("CANNOT RECOGNIZE FILE TYPE. EXTENSION UNKNOWN.")
+        return
+
     prefix = ConfigReader.asset_prefix(f_type)
 
     suffix = ''
@@ -52,7 +57,8 @@ def generate_name(filename, asset_name):
         suffix = ConfigReader.texture_suffix(filename)
 
         if not suffix:
-            raise Exception("Can't recognize texture type from the name.")
+            debug.show_error("Can't recognize texture type from the name. Check texture naming rules!")
+            return
 
     # complete name
     name = prefix + '_' + asset_name
