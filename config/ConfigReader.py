@@ -123,4 +123,10 @@ def file_type_from_ext(ext):
         if ext.lower() in config_data['file_formats'][file_type]:
             return file_type
 
-    raise ConfigException("File type not recognize!")
+    return None
+
+
+def texture_naming_dict():
+    config_data = read_config()
+
+    return config_data['texture_naming']
