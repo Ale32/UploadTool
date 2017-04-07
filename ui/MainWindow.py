@@ -46,13 +46,14 @@ class UploadToolUI(object):
 
     def upload(self):
         # get data selected
-        project = self.ui.comboBox_projects.itemData(self.ui.comboBox_projects.currentIndex())[1]
-        group = self.ui.comboBox_group.itemData(self.ui.comboBox_group.currentIndex())[1]
-        asset = self.ui.comboBox_asset.itemData(self.ui.comboBox_asset.currentIndex())[1]
+        project = self.ui.comboBox_projects.itemData(self.ui.comboBox_projects.currentIndex())
+        group = self.ui.comboBox_group.itemData(self.ui.comboBox_group.currentIndex())
+        asset = self.ui.comboBox_asset.itemData(self.ui.comboBox_asset.currentIndex())
 
         # initialized uploader
         uploader = Uploader.Uploader(project, group, asset)
 
+        # get selected files
         selected_files = []
         for index in xrange(self.ui.listWidget.count()):
             selected_files.append(self.ui.listWidget.item(index).text())

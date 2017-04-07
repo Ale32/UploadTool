@@ -3,6 +3,7 @@ __author__ = 'a.paoletti'
 from core import sql
 from core import debug
 import os
+import re
 
 from config import ConfigReader
 
@@ -38,6 +39,41 @@ def file_type(filename):
     ext = os.path.splitext(filename)[1].replace('.', '')
 
     return ConfigReader.file_type_from_ext(ext)
+
+
+def asset_versioning(asset_id):
+    data = sql.asset_versioning(asset_id)
+
+    return data[0]['versioning']
+
+
+def version(asset_dir):
+    """ Search into asset_path folders call vXXX
+
+    Return string of the version in the form vXXX incrementing the last one founded
+    """
+    regex = ur"^v([\d]{3})$"
+    new_version = 'v001'
+    versions = []
+
+    if not os.path.exists(asset_dir):
+        os.makedirs(asset_dir)
+
+    # look for dirs into asset dir searching for vXXX
+    subdirs = [name for name in os.listdir(asset_dir) if os.path.isdir(os.path.join(asset_dir, name))]
+
+    for d in subdirs:
+        print d
+        matches = re.finditer(regex, d)
+
+        for match_num, match in enumerate(matches):
+            if match.groups()[0]:
+                versions.append(match.groups()[0])
+
+        latest_version = sorted(versions)[-1]
+        new_version = 'v' + str(int(latest_version) + 1).zfill(3)
+
+    return new_version
 
 
 def generate_name(filename, asset_name):

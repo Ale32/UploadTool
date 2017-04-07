@@ -74,3 +74,13 @@ def add_asset(group_id=None):
     connect().commit()
 
     return cursor.lastrowid
+
+
+def asset_versioning(asset_id):
+    if asset_id is None:
+        raise ValueError('No asset id defined')
+
+    cursor = connect().cursor()
+    cursor.execute('SELECT versioning FROM assets WHERE id = ?', (asset_id,))
+
+    return cursor.fetchall()
