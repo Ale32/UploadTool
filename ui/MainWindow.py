@@ -1,6 +1,7 @@
 __author__ = 'a.paoletti'
 
 from PySide import QtCore, QtGui, QtUiTools
+import os
 
 from core import UploaderUtilities
 from core import Uploader
@@ -60,11 +61,14 @@ class UploadToolUI(object):
 
         self.ui.statusbar.showMessage(
             "Copying file into {0}".format(uploader.directory()),
-            3000  # milliseconds
+            5000  # milliseconds
         )
         # upload selected files
         for f in selected_files:
             uploader.upload(f)
+
+        # track the upload at the end
+        uploader.log()
 
     def fill_projects(self):
         # fill projects combo box
@@ -109,9 +113,11 @@ class UploadToolUI(object):
         """ Open a file dialog in order to choose files to upload """
         f_dialog = QtGui.QFileDialog()
         f_dialog.setFileMode(QtGui.QFileDialog.ExistingFiles)
-        f_dialog.setDirectory("C:\\Users\\a.paoletti\\Desktop\\STUFF")
-        f_dialog.setNameFilter("Assets data (*.fbx *.png *.jpg *.tga)")
-        f_dialog.selectNameFilter("*.fbx *.png *.jpg *.tga")
+        f_dialog.setDirectory(os.getenv("USERPROFILE"))
+
+        filters = ConfigReader.generate_file_filter() + " " + ConfigReader.generate_texture_filter()
+        f_dialog.setNameFilter("Assets data ({})".format(filters))
+        f_dialog.selectNameFilter("{}".format(filters))
 
         if f_dialog.exec_():
             filenames = f_dialog.selectedFiles()

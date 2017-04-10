@@ -3,8 +3,10 @@ UPLOADER CLASS
 """
 import os
 import shutil
+
 from config import ConfigReader
 from core import UploaderUtilities
+from core import tracker
 
 
 class Uploader(object):
@@ -54,6 +56,9 @@ class Uploader(object):
 
     def directory(self):
         return self.dir
+
+    def log(self):
+        tracker.track_it(self.dir)
 
     def upload(self, file_path):
         # generate asset name from file basename
