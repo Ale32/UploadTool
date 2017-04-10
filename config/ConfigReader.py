@@ -83,13 +83,13 @@ def accepted_files(filename):
 
 def generate_file_filter():
     config_data = read_config()
-    file_formats = ['*.{}'.format(f.lower()) for f in config_data['file_formats']['file']]
+    file_formats = ['*.{}'.format(f.lower()) for f in config_data['file_formats']['meshes']]
     return ' '.join(file_formats)
 
 
 def generate_texture_filter():
     config_data = read_config()
-    file_formats = ['*.{}'.format(f.lower()) for f in config_data['file_formats']['texture']]
+    file_formats = ['*.{}'.format(f.lower()) for f in config_data['file_formats']['textures']]
     return ' '.join(file_formats)
 
 
