@@ -11,7 +11,8 @@ from config import ConfigReader
 class UploadToolUI(object):
 
     def __init__(self):
-        self.ui = self.load_ui_widget("ui/MainWindow.ui")
+        ui_file = os.path.join(os.path.dirname(__file__), 'MainWindow.ui')
+        self.ui = self.load_ui_widget(ui_file)
 
         self.setup_connections()
 
@@ -50,9 +51,11 @@ class UploadToolUI(object):
         project = self.ui.comboBox_projects.itemData(self.ui.comboBox_projects.currentIndex())
         group = self.ui.comboBox_group.itemData(self.ui.comboBox_group.currentIndex())
         asset = self.ui.comboBox_asset.itemData(self.ui.comboBox_asset.currentIndex())
+        is_new_version = self.ui.checkBox_version.isChecked()
 
         # initialized uploader
         uploader = Uploader.Uploader(project, group, asset)
+        uploader.add_versioning_folder(is_new_version)
 
         # get selected files
         selected_files = []

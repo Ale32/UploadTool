@@ -3,10 +3,12 @@ UPLOADER CLASS
 """
 import os
 import shutil
+from PySide import QtGui
 
 from config import ConfigReader
 from core import UploaderUtilities
 from core import tracker
+from core import debug
 
 
 class Uploader(object):
@@ -31,9 +33,11 @@ class Uploader(object):
         self.dir = ''
         self.generate_dir_path()
 
+        self.asset_versioning = False
+
         # add version folder if asset require it
         if UploaderUtilities.asset_versioning(self.asset_id) in ['true', 'True', '1']:
-            self.add_versioning_folder()
+            self.asset_versioning = True
 
     def generate_dir_path(self):
         self.dir = os.path.join(
@@ -48,11 +52,17 @@ class Uploader(object):
         )
         os.path.normcase(self.dir)
 
-    def add_versioning_folder(self):
-        self.dir = os.path.join(
-            self.dir,
-            UploaderUtilities.version(self.dir)
-        )
+    def add_versioning_folder(self, new_version):
+        """ Modify asset dir adding the version folder
+
+        If param new_version is True increase the latest version found,
+        otherwise set the directory as the last version
+        """
+        if self.asset_versioning is True:
+            self.dir = os.path.join(
+                self.dir,
+                UploaderUtilities.version(self.dir, new_version)
+            )
 
     def directory(self):
         return self.dir
@@ -73,6 +83,15 @@ class Uploader(object):
 
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
+
+        # warning if file already exists
+        if os.path.isfile(file_output):
+            res = debug.show_warning(
+                "File {}\nis already uploaded on server: are you sure to overwrite it?\n"
+                "\nIf you are not sure, you can press cancel and upload it as a new version".format(file_output)
+            )
+            if not res == QtGui.QMessageBox.Ok:
+                return
 
         try:
             # print 'SOURCE ', file_path

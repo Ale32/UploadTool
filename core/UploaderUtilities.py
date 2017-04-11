@@ -47,13 +47,13 @@ def asset_versioning(asset_id):
     return data[0]['versioning']
 
 
-def version(asset_dir):
+def version(asset_dir, new_version):
     """ Search into asset_path folders call vXXX
-
-    Return string of the version in the form vXXX incrementing the last one founded
+    If new_version is True, return string of the version in the form vXXX incrementing the last one founded
+    If is False, return the current version if exist
     """
     regex = ur"^v([\d]{3})$"
-    new_version = 'v001'
+    version_found = False
     versions = []
 
     if not os.path.exists(asset_dir):
@@ -63,17 +63,23 @@ def version(asset_dir):
     subdirs = [name for name in os.listdir(asset_dir) if os.path.isdir(os.path.join(asset_dir, name))]
 
     for d in subdirs:
-        print d
         matches = re.finditer(regex, d)
 
         for match_num, match in enumerate(matches):
             if match.groups()[0]:
+                version_found = True
                 versions.append(match.groups()[0])
 
+    if version_found is True:
         latest_version = sorted(versions)[-1]
-        new_version = 'v' + str(int(latest_version) + 1).zfill(3)
+        
+        if new_version is False:
+            return 'v' + latest_version.zfill(3)
 
-    return new_version
+        return 'v' + str(int(latest_version) + 1).zfill(3)
+
+    else:
+        return 'v001'
 
 
 def generate_name(filename, asset_name):

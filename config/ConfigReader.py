@@ -14,7 +14,7 @@ def read_config():
     if config_data is not None:
         return config_data
 
-    config_file = os.path.join('config', 'config.json')
+    config_file = os.path.join(os.path.dirname(__file__), 'config.json')
     config_file = os.path.abspath(config_file)
 
     with open(config_file) as f:

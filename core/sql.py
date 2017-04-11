@@ -1,4 +1,6 @@
 import sqlite3
+import os
+
 from config import ConfigReader
 
 connection = None
@@ -17,7 +19,11 @@ def connect():
     if connection is not None:
         return connection
 
-    db_path = ConfigReader.db_path()
+    # relative path from project root
+    db_rel_path = ConfigReader.db_path()
+
+    # we are inside root/core, so we have to get the absolute path from root
+    db_path = os.path.join(os.path.dirname(__file__), '..', db_rel_path)
     connection = sqlite3.connect(db_path)
 
     connection.row_factory = dict_factory
