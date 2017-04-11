@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>431</width>
+    <width>436</width>
     <height>613</height>
    </rect>
   </property>
@@ -31,7 +31,7 @@
      <number>5</number>
     </property>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <layout class="QHBoxLayout" name="hlay_project">
       <property name="spacing">
        <number>7</number>
       </property>
@@ -162,6 +162,32 @@
          </size>
         </property>
        </spacer>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="hlay_version">
+      <property name="spacing">
+       <number>7</number>
+      </property>
+      <property name="leftMargin">
+       <number>7</number>
+      </property>
+      <property name="topMargin">
+       <number>3</number>
+      </property>
+      <property name="rightMargin">
+       <number>7</number>
+      </property>
+      <property name="bottomMargin">
+       <number>3</number>
+      </property>
+      <item>
+       <widget class="QCheckBox" name="checkBox_version">
+        <property name="text">
+         <string>Add new version (if checked, you have to upload all data this asset needs)</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
