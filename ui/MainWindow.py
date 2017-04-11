@@ -18,7 +18,17 @@ class UploadToolUI(object):
 
         self.fill_projects()
 
-        self.populate_convention_table()
+        self.write_tutorial_text()
+
+        QtGui.QShortcut(QtGui.QKeySequence("Ctrl+E"), self.ui, self.open_asset_dir)
+
+    def open_asset_dir(self):
+        # get data selected
+        project, group, asset, is_new_version = self.selected_data()
+
+        # initialized uploader
+        uploader = Uploader.Uploader(project, group, asset)
+        uploader.open_asset_dir()
 
     def setup_connections(self):
         self.ui.button_fbx.clicked.connect(self.get_files)
@@ -34,24 +44,20 @@ class UploadToolUI(object):
 
         self.ui.button_upload.clicked.connect(self.upload)
 
-    def populate_convention_table(self):
-        data = ConfigReader.texture_naming_dict()
-        self.ui.table_rules.setColumnCount(2)
-        self.ui.table_rules.setHorizontalHeaderLabels(['Texture Type', 'Accepted Names'])
-        self.ui.table_rules.setRowCount(len(data))
+    def write_tutorial_text(self):
+        self.ui.textEdit_r.setText(UploaderUtilities.instructions())
 
-        row = 0
-        for key, value in data.iteritems():
-            self.ui.table_rules.setItem(row, 0, QtGui.QTableWidgetItem(key))
-            self.ui.table_rules.setItem(row, 1, QtGui.QTableWidgetItem(', '.join(value['text'])))
-            row += 1
-
-    def upload(self):
-        # get data selected
+    def selected_data(self):
         project = self.ui.comboBox_projects.itemData(self.ui.comboBox_projects.currentIndex())
         group = self.ui.comboBox_group.itemData(self.ui.comboBox_group.currentIndex())
         asset = self.ui.comboBox_asset.itemData(self.ui.comboBox_asset.currentIndex())
         is_new_version = self.ui.checkBox_version.isChecked()
+
+        return project, group, asset, is_new_version
+
+    def upload(self):
+        # get data selected
+        project, group, asset, is_new_version = self.selected_data()
 
         # initialized uploader
         uploader = Uploader.Uploader(project, group, asset)

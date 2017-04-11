@@ -3,7 +3,7 @@ UPLOADER CLASS
 """
 import os
 import shutil
-from PySide import QtGui
+from PySide import QtGui, QtCore
 
 from config import ConfigReader
 from core import UploaderUtilities
@@ -69,6 +69,11 @@ class Uploader(object):
 
     def log(self):
         tracker.track_it(self.dir)
+
+    def open_asset_dir(self):
+        if os.path.exists(self.dir):
+            cmd = 'explorer "{}"'.format(self.dir.replace("/", "\\"))
+            os.system(cmd)
 
     def upload(self, file_path):
         # generate asset name from file basename

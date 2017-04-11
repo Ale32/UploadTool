@@ -110,3 +110,28 @@ def generate_name(filename, asset_name):
 
     name += '.' + ext
     return name
+
+
+def instructions():
+    """ Format a text with app istructions
+
+    Dynamically created from config data.
+    This is useful to display informations on GUI.
+
+    :return: An HTML text representing instructions
+    """
+    txt_naming = ConfigReader.texture_naming_dict()
+
+    text = "<b>Texture naming rules:</b><br>(put an underscore _ at the end of file name)"
+
+    for key, value in txt_naming.iteritems():
+        text += "<br>- {0}: {1}".format(key, ', '.join(a for a in value['text']))
+
+    text += "<br>"
+    text += "<br><b>File formats:</b>"
+    text += "<br>Meshes:"
+    text += ConfigReader.generate_file_filter()
+    text += "<br>Textures:"
+    text += ConfigReader.generate_texture_filter()
+
+    return text
