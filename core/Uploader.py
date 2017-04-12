@@ -3,7 +3,7 @@ UPLOADER CLASS
 """
 import os
 import shutil
-from PySide import QtGui, QtCore
+from PySide import QtGui
 
 from config import ConfigReader
 from core import UploaderUtilities
