@@ -199,6 +199,9 @@
         <property name="text">
          <string>Add new version (if checked, you have to upload all data this asset needs)</string>
         </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
      </layout>
