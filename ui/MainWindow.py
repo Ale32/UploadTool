@@ -14,6 +14,9 @@ class UploadToolUI(object):
         ui_file = os.path.join(os.path.dirname(__file__), 'MainWindow.ui')
         self.ui = self.load_ui_widget(ui_file)
 
+        icon = QtGui.QIcon(os.path.join(os.path.dirname(__file__), 'icon.png'))
+        self.ui.setWindowIcon(icon)
+
         self.setup_connections()
 
         self.fill_projects()
