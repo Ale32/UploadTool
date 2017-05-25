@@ -104,14 +104,31 @@ def asset_prefix(asset_type):
 
 
 def texture_suffix(filename):
+    """
+    Take last piece of filename (character between last _ and extension)
+    and check if it is a known texture type from config file.
+
+    Example1: assetname_diffuse.png ---> _D
+    Example2: assetname_diffuse01.png ---> _D01
+
+    :param filename: name of file
+    :return: texture suffix + texture number (from file)
+    """
     config_data = read_config()
 
     filename = os.path.splitext(filename)[0]
     txt_part = filename.split("_")[-1]
 
+    txt_number = ''
+    if len(txt_part) > 2:
+        txt_number = txt_part[-2:] if txt_part[-2:].isdigit() else ''
+
+    if txt_number:
+        txt_part = txt_part[:-2]
+
     for txt_type in config_data['texture_naming']:
         if txt_part in config_data['texture_naming'][txt_type]['text']:
-            return config_data['texture_naming'][txt_type]['suffix']
+            return config_data['texture_naming'][txt_type]['suffix'] + txt_number
 
     return None
 

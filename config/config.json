@@ -49,6 +49,11 @@
         "metallic": {
             "text": ["metallic", "m"],
             "suffix": "M"
+        },
+		
+		"id": {
+            "text": ["id"],
+            "suffix": "ID"
         }
     }
 }
