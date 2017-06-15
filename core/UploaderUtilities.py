@@ -122,7 +122,10 @@ def instructions():
     """
     txt_naming = ConfigReader.texture_naming_dict()
 
-    text = "<b>Texture naming rules:</b><br>(put an underscore _ at the end of file name)"
+    text = "<b>Texture naming rules:</b><br>(put an underscore _ at the end of file name; " \
+           "you can enumerate textures using two digits after texture type without any other character" \
+           "<br> e.g. _normal01 or in general _normalXX)" \
+           "<br>"
 
     for key, value in txt_naming.iteritems():
         text += "<br>- {0}: {1}".format(key, ', '.join(a for a in value['text']))
