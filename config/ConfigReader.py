@@ -105,7 +105,7 @@ def asset_prefix(asset_type):
 
 def texture_suffix(filename):
     """
-    Take last piece of filename (character between last _ and extension)
+    Take last piece of filename (characters between last _ and extension)
     and check if it is a known texture type from config file.
 
     Example1: assetname_diffuse.png ---> _D
@@ -117,7 +117,7 @@ def texture_suffix(filename):
     config_data = read_config()
 
     filename = os.path.splitext(filename)[0]
-    txt_part = filename.split("_")[-1]
+    txt_part = filename.split("_")[-1].lower()
 
     txt_number = ''
     if len(txt_part) > 2:

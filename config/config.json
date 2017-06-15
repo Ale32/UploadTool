@@ -54,6 +54,16 @@
 		"id": {
             "text": ["id"],
             "suffix": "ID"
+        },
+
+        "bump": {
+            "text": ["bump", "bumpmap"],
+            "suffix": "NB"
+        },
+
+        "mask": {
+            "text": ["mask"],
+            "suffix": "MASK"
         }
     }
 }
