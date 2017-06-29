@@ -12,6 +12,7 @@ The tool shows the assets from a sqlite database.
 It checks for naming conventions and file types allowed, then renames the asset as defined on the uploader utilites and save that asset on path defined in the configuration file.
 
 In the config.json file you can setup:
-- File types allowed
-- name conventions for textures
-- Paths of server, share and content
+
+* File types allowed
+* name conventions for textures
+* Paths of server, share and content
